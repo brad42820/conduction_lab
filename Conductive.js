@@ -23,9 +23,10 @@ CHOICE_RADIO.forEach(element => element.addEventListener('change', async (event)
 
 async function getValue(val) {
   if (val=="Choice1"){
-    var fnm = "./ChoiceA.csv";
+    //var fnm = "./ChoiceA.csv";
+    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceA.csv"
   } else {
-    var fnm = "./ChoiceB.csv";
+    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceB.csv"
   }
   //alert(val);
   return new Promise( resolve => {
