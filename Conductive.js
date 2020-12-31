@@ -24,9 +24,9 @@ CHOICE_RADIO.forEach(element => element.addEventListener('change', async (event)
 async function getValue(val) {
   if (val=="Choice1"){
     //var fnm = "./ChoiceA.csv";
-    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceA.csv"
+    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceD2.csv"
   } else {
-    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceB.csv"
+    var fnm="https://raw.githubusercontent.com/brad42820/conduction_lab/main/ChoiceA.csv"
   }
   //alert(val);
   return new Promise( resolve => {
@@ -86,11 +86,26 @@ function draw_crosses(){
   ctx1.stroke();
 }
 
+function draw_probe(x,y) {
+    ctx1.beginPath();
+    ctx1.arc(x, y, 4, 0, 2 * Math.PI);
+    ctx1.fillStyle="#00ddaa";
+    ctx1.fill();
+}
+
 function draw(VOLTAGES) {
   clear();
   draw_heat_map(VOLTAGES);
   draw_crosses();
 }
+
+function draw_with_sensor(VOLTAGES, x, y) {
+  clear();
+  draw_heat_map(VOLTAGES);
+  draw_crosses();
+  draw_probe(x,y);
+}
+
 //----------------------
 
 //----------------------
@@ -114,8 +129,10 @@ function MouseDrag(e){
     let j = e.pageY - Canvas1.offsetTop;
     if ((0<i) && (i<600) && (0<j) && (j<600)){
       Voltage_Log.innerHTML = "Voltage: "+parseFloat(VOLTAGES[i][j]).toFixed(2)+"V";
+      draw_with_sensor(VOLTAGES, i, j);
     } else {
       Voltage_Log.innerHTML = "Voltage: -.--V";
+      draw(VOLTAGES);
     }
   }
 }
